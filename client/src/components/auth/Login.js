@@ -5,11 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 // import { login } from '../../actions/auth';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const { email, password } = formData;
 
   const onChange = (e) =>
@@ -17,7 +13,6 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDfeault();
-
     console.log('Success');
   };
 
@@ -25,7 +20,7 @@ const Login = () => {
     <>
       <h1 className="large text-primary">Sign In</h1>
       <p className="lead">
-        <i className="fas fa-user"></i> Sign into Your Account
+        <i className="fas fa-user"></i>Sign into Your Account
       </p>
       <form className="form" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
