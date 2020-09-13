@@ -1,11 +1,12 @@
 const express = require('express');
 const axios = require('axios');
 const config = require('config');
+
 const router = express.Router();
-const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 // bring in normalize to give us a proper url, regardless of what user entered
 const normalize = require('normalize-url');
+const auth = require('../../middleware/auth');
 const checkObjectId = require('../../middleware/checkObjectId');
 
 const Profile = require('../../models/Profile');
@@ -68,11 +69,14 @@ router.post(
       user: req.user.id,
       company,
       location,
-      website: website && website !== '' ? normalize(website, { forceHttps: true }) : '',
+      website:
+        website && website !== ''
+          ? normalize(website, { forceHttps: true })
+          : '',
       bio,
       skills: Array.isArray(skills)
         ? skills
-        : skills.split(',').map((skill) => ' ' + skill.trim()),
+        : skills.split(',').map((skill) => ` ${skill.trim()}`),
       status,
       githubusername
     };
@@ -81,14 +85,15 @@ router.post(
     const socialfields = { youtube, twitter, instagram, linkedin, facebook };
 
     for (const [key, value] of Object.entries(socialfields)) {
-      if (value && value.length > 0)
+      if (value && value.length > 0) {
         socialfields[key] = normalize(value, { forceHttps: true });
+      }
     }
     profileFields.social = socialfields;
 
     try {
       // Using upsert option (creates new doc if no match is found):
-      let profile = await Profile.findOneAndUpdate(
+      const profile = await Profile.findOneAndUpdate(
         { user: req.user.id },
         { $set: profileFields },
         { new: true, upsert: true, setDefaultsOnInsert: true }
