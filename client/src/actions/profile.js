@@ -1,6 +1,6 @@
 import axios from 'axios';
 // import api from '../utils/api';
-import { setAlert } from './alert';
+// import { setAlert } from './alert';
 
 import {
   GET_PROFILE,
@@ -16,7 +16,7 @@ import {
 // Get current user profile
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    const res = await axios.get('api/profile/me');
+    const res = await axios.get('/api/profile/me');
 
     dispatch({
       type: GET_PROFILE,
