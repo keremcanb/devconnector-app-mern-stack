@@ -17,9 +17,7 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  return loading && profile === null ? (
-    <Spinner />
-  ) : (
+  return !(loading && profile === null) ? (
     <>
       <h1 className="large text-primary">Dashboard</h1>
       <p className="lead">
@@ -36,6 +34,8 @@ const Dashboard = ({
         </>
       )}
     </>
+  ) : (
+    <Spinner />
   );
 };
 
