@@ -43,7 +43,7 @@ const AddEducation = ({ addEducation, history }) => {
         that you have attended
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit={(e) => onSubmit(e)}>
+      <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
           <input
             type="text"
@@ -51,7 +51,7 @@ const AddEducation = ({ addEducation, history }) => {
             name="school"
             value={school}
             required
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
         </div>
         <div className="form-group">
@@ -61,7 +61,7 @@ const AddEducation = ({ addEducation, history }) => {
             name="degree"
             required
             value={degree}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
         </div>
         <div className="form-group">
@@ -70,17 +70,12 @@ const AddEducation = ({ addEducation, history }) => {
             placeholder="Field Of Study"
             name="fieldofstudy"
             value={fieldofstudy}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
         </div>
         <div className="form-group">
           <h4>From Date</h4>
-          <input
-            type="date"
-            name="from"
-            value={from}
-            onChange={(e) => onChange(e)}
-          />
+          <input type="date" name="from" value={from} onChange={onChange} />
         </div>
         <div className="form-group">
           <p>
@@ -103,7 +98,7 @@ const AddEducation = ({ addEducation, history }) => {
             type="date"
             name="to"
             value={to}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
             disabled={toDateDisabled ? 'disabled' : ''}
           />
         </div>
@@ -114,7 +109,7 @@ const AddEducation = ({ addEducation, history }) => {
             rows="5"
             placeholder="Program Description"
             value={description}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
         </div>
         <input type="submit" className="btn btn-primary my-1" />

@@ -35,7 +35,7 @@ const AddExperience = ({ addExperience, history }) => {
         positions that you have had in the past
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit={(e) => onSubmit(e)}>
+      <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
           <input
             type="text"
@@ -43,7 +43,7 @@ const AddExperience = ({ addExperience, history }) => {
             name="title"
             value={title}
             required
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
         </div>
         <div className="form-group">
@@ -53,7 +53,7 @@ const AddExperience = ({ addExperience, history }) => {
             name="company"
             value={company}
             required
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
         </div>
         <div className="form-group">
@@ -62,17 +62,12 @@ const AddExperience = ({ addExperience, history }) => {
             placeholder="Location"
             name="location"
             value={location}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
         </div>
         <div className="form-group">
           <h4>From Date</h4>
-          <input
-            type="date"
-            name="from"
-            value={from}
-            onChange={(e) => onChange(e)}
-          />
+          <input type="date" name="from" value={from} onChange={onChange} />
         </div>
         <div className="form-group">
           <p>
@@ -95,7 +90,7 @@ const AddExperience = ({ addExperience, history }) => {
             type="date"
             name="to"
             value={to}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
             disabled={toDateDisabled ? 'disabled' : ''}
           />
         </div>
@@ -106,7 +101,7 @@ const AddExperience = ({ addExperience, history }) => {
             cols="30"
             rows="5"
             placeholder="Job Description"
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
         </div>
         <input type="submit" className="btn btn-primary my-1" />

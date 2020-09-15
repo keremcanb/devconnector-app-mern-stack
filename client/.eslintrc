@@ -24,7 +24,7 @@
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/media-has-caption": "off",
     "react/forbid-prop-types": "off",
-    // "no-underscore-dangle": "off",
+    "no-underscore-dangle": "off",
     // "no-use-before-define": "off",
     // "react/prefer-stateless-function": "off",
     "react/require-default-props": "off"
