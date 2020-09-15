@@ -102,3 +102,6 @@ export const logout = () => (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };
+
+// Delete profile
+export const deleteProfile = () => (dispatch) => {};
