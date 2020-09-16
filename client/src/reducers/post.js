@@ -2,11 +2,11 @@ import {
   GET_POSTS,
   POST_ERROR,
   UPDATE_LIKES,
-  DELETE_POST
-  // ADD_POST,
-  // GET_POST,
-  // ADD_COMMENT,
-  // REMOVE_COMMENT
+  DELETE_POST,
+  ADD_POST,
+  GET_POST,
+  ADD_COMMENT,
+  REMOVE_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -24,6 +24,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         posts: payload,
+        loading: false
+      };
+    case ADD_POST:
+      return {
+        ...state,
+        posts: [payload, ...state.posts],
         loading: false
       };
     case DELETE_POST:
