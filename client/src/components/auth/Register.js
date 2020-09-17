@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 
+// We are taking setAlert & register functions from action creater, and isAuthenticated boolean from Redux store.
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -21,6 +22,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    // If passwords match, we are calling register action creator function and making an axios post request.
     if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
     } else {
@@ -96,6 +98,7 @@ Register.propTypes = {
   isAuthenticated: PropTypes.bool
 };
 
+// We are taking isAuthenticated state from Redux auth and assigning to isAuthenticated prop.
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated
 });

@@ -13,6 +13,7 @@ import {
 } from './types';
 
 // Load user
+// We must use Redux Thunk middleware to make an async Axios request from the action creator.
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
