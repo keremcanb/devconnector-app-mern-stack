@@ -10,7 +10,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_PROFILE
-} from './types';
+} from '../types';
 
 const headers = {
   headers: {
@@ -23,10 +23,10 @@ export const loadUser = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await get('/api/auth');
+    const { data } = await get('/api/auth');
     dispatch({
       type: USER_LOADED,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -38,10 +38,10 @@ export const loadUser = () => async (dispatch) => {
 export const register = ({ name, email, password }) => async (dispatch) => {
   const body = JSON.stringify({ name, email, password });
   try {
-    const res = await post('/api/users', body, headers);
+    const { data } = await post('/api/users', body, headers);
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: res.data
+      payload: data
     });
     dispatch(loadUser());
   } catch (err) {
@@ -58,10 +58,10 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 export const login = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
   try {
-    const res = await post('/api/auth', body, headers);
+    const { data } = await post('/api/auth', body, headers);
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data
+      payload: data
     });
     dispatch(loadUser());
   } catch (err) {

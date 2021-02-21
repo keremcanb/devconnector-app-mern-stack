@@ -8,7 +8,7 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
   GET_REPOS
-} from './types';
+} from '../types';
 
 const headers = {
   headers: {
@@ -18,10 +18,10 @@ const headers = {
 
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    const res = await get('/api/profile/me');
+    const { data } = await get('/api/profile/me');
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -34,10 +34,10 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const getAllProfiles = () => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   try {
-    const res = await get('/api/profile');
+    const { data } = await get('/api/profile');
     dispatch({
       type: GET_PROFILES,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -49,10 +49,10 @@ export const getAllProfiles = () => async (dispatch) => {
 
 export const getProfileById = (userId) => async (dispatch) => {
   try {
-    const res = await get(`/api/profile/user/${userId}`);
+    const { data } = await get(`/api/profile/user/${userId}`);
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -64,10 +64,10 @@ export const getProfileById = (userId) => async (dispatch) => {
 
 export const getGithubRepos = (username) => async (dispatch) => {
   try {
-    const res = await get(`/api/profile/github/${username}`);
+    const { data } = await get(`/api/profile/github/${username}`);
     dispatch({
       type: GET_REPOS,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -79,10 +79,10 @@ export const getGithubRepos = (username) => async (dispatch) => {
 
 export const createProfile = (formData, history, edit = false) => async (dispatch) => {
   try {
-    const res = await post('/api/profile', formData, headers);
+    const { data } = await post('/api/profile', formData, headers);
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
     if (!edit) {
@@ -102,10 +102,10 @@ export const createProfile = (formData, history, edit = false) => async (dispatc
 
 export const addExperience = (formData, history) => async (dispatch) => {
   try {
-    const res = await put('/api/profile/experience', formData, headers);
+    const { data } = await put('/api/profile/experience', formData, headers);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Experience Added', 'success'));
     history.push('/dashboard');
@@ -123,10 +123,10 @@ export const addExperience = (formData, history) => async (dispatch) => {
 
 export const addEducation = (formData, history) => async (dispatch) => {
   try {
-    const res = await put('/api/profile/education', formData, headers);
+    const { data } = await put('/api/profile/education', formData, headers);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Education Added', 'success'));
     history.push('/dashboard');
@@ -144,10 +144,10 @@ export const addEducation = (formData, history) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/profile/experience/${id}`);
+    const { data } = await axios.delete(`/api/profile/experience/${id}`);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Experience Removed', 'success'));
   } catch (err) {
@@ -160,10 +160,10 @@ export const deleteExperience = (id) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/profile/education/${id}`);
+    const { data } = await axios.delete(`/api/profile/education/${id}`);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Education Removed', 'success'));
   } catch (err) {

@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import { deleteExperience } from '../../store/actions/profile';
 
 const Experience = ({ experience, deleteExperience }) => {
-  const experiences = experience.map((exp) => (
-    <tr key={exp._id}>
-      <td>{exp.company}</td>
-      <td className="hide-sm">{exp.title}</td>
+  const experiences = experience.map(({ _id, title, company, from, to }) => (
+    <tr key={_id}>
+      <td>{company}</td>
+      <td className="hide-sm">{title}</td>
       <td>
-        <Moment format="YYYY/MM/DD">{moment.utc(exp.from)} </Moment> -{' '}
-        {exp.to === null ? ' Now' : <Moment format="YYYY/MM/DD">{moment.utc(exp.to)} </Moment>}
+        <Moment format="YYYY/MM/DD">{moment.utc(from)} </Moment> -{' '}
+        {to === null ? ' Now' : <Moment format="YYYY/MM/DD">{moment.utc(to)} </Moment>}
       </td>
       <td>
-        <button onClick={() => deleteExperience(exp._id)} className="btn btn-danger">
+        <button onClick={() => deleteExperience(_id)} className="btn btn-danger">
           Delete
         </button>
       </td>

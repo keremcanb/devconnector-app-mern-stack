@@ -9,7 +9,7 @@ import {
   GET_POST,
   ADD_COMMENT,
   REMOVE_COMMENT
-} from './types';
+} from '../types';
 
 const headers = {
   headers: {
@@ -19,10 +19,10 @@ const headers = {
 
 export const getPosts = () => async (dispatch) => {
   try {
-    const res = await get('/api/posts');
+    const { data } = await get('/api/posts');
     dispatch({
       type: GET_POSTS,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -34,10 +34,10 @@ export const getPosts = () => async (dispatch) => {
 
 export const addLike = (id) => async (dispatch) => {
   try {
-    const res = await put(`/api/posts/like/${id}`);
+    const { data } = await put(`/api/posts/like/${id}`);
     dispatch({
       type: UPDATE_LIKES,
-      payload: { id, likes: res.data }
+      payload: { id, likes: data }
     });
   } catch (err) {
     dispatch({
@@ -49,10 +49,10 @@ export const addLike = (id) => async (dispatch) => {
 
 export const removeLike = (id) => async (dispatch) => {
   try {
-    const res = await put(`/api/posts/unlike/${id}`);
+    const { data } = await put(`/api/posts/unlike/${id}`);
     dispatch({
       type: UPDATE_LIKES,
-      payload: { id, likes: res.data }
+      payload: { id, likes: data }
     });
   } catch (err) {
     dispatch({
@@ -80,10 +80,10 @@ export const deletePost = (id) => async (dispatch) => {
 
 export const addPost = (formData) => async (dispatch) => {
   try {
-    const res = await post('/api/posts/', formData, headers);
+    const { data } = await post('/api/posts/', formData, headers);
     dispatch({
       type: ADD_POST,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Post Created', 'success'));
   } catch (err) {
@@ -96,10 +96,10 @@ export const addPost = (formData) => async (dispatch) => {
 
 export const getPost = (id) => async (dispatch) => {
   try {
-    const res = await get(`/api/posts/${id}`);
+    const { data } = await get(`/api/posts/${id}`);
     dispatch({
       type: GET_POST,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -110,16 +110,11 @@ export const getPost = (id) => async (dispatch) => {
 };
 
 export const addComment = (postId, formData) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
   try {
-    const res = await post(`/api/posts/comment/${postId}`, formData, config);
+    const { data } = await post(`/api/posts/comment/${postId}`, formData, headers);
     dispatch({
       type: ADD_COMMENT,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Comment Added', 'success'));
   } catch (err) {

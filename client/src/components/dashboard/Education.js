@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import { deleteEducation } from '../../store/actions/profile';
 
 const Education = ({ education, deleteEducation }) => {
-  const educations = education.map((edu) => (
-    <tr key={edu._id}>
-      <td>{edu.school}</td>
-      <td className="hide-sm">{edu.degree}</td>
+  const educations = education.map(({ _id, school, degree, from, to }) => (
+    <tr key={_id}>
+      <td>{school}</td>
+      <td className="hide-sm">{degree}</td>
       <td>
-        <Moment format="YYYY/MM/DD">{moment.utc(edu.from)} </Moment> -{' '}
-        {edu.to === null ? ' Now' : <Moment format="YYYY/MM/DD">{moment.utc(edu.to)} </Moment>}
+        <Moment format="YYYY/MM/DD">{moment.utc(from)} </Moment> -{' '}
+        {to === null ? ' Now' : <Moment format="YYYY/MM/DD">{moment.utc(to)} </Moment>}
       </td>
       <td>
-        <button onClick={() => deleteEducation(edu._id)} className="btn btn-danger">
+        <button onClick={() => deleteEducation(_id)} className="btn btn-danger">
           Delete
         </button>
       </td>
