@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addPost } from '../../store/actions/post';
 
-const PostForm = ({ addPost }) => {
+const PostForm = () => {
+  const dispatch = useDispatch();
   const [text, setText] = useState('');
 
   return (
@@ -15,7 +15,7 @@ const PostForm = ({ addPost }) => {
         className="form my-1"
         onSubmit={(e) => {
           e.preventDefault();
-          addPost({ text });
+          dispatch(addPost({ text }));
           setText('');
         }}
       >
@@ -34,8 +34,4 @@ const PostForm = ({ addPost }) => {
   );
 };
 
-PostForm.propTypes = {
-  addPost: PropTypes.func.isRequired
-};
-
-export default connect(null, { addPost })(PostForm);
+export default PostForm;

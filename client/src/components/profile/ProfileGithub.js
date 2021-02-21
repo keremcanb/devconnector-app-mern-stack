@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getGithubRepos } from '../../store/actions/profile';
 import Spinner from '../layout/Spinner';
 
-const ProfileGithub = ({ username, getGithubRepos, repos }) => {
+const ProfileGithub = ({ username }) => {
+  const dispatch = useDispatch();
+  const profileState = useSelector((state) => state.profile.repos);
+  const { repos } = profileState;
+
   useEffect(() => {
-    getGithubRepos(username);
-  }, [getGithubRepos, username]);
+    dispatch(getGithubRepos(username));
+  }, [username, dispatch]);
 
   return (
     <div className="profile-github">
@@ -41,13 +45,7 @@ const ProfileGithub = ({ username, getGithubRepos, repos }) => {
 };
 
 ProfileGithub.propTypes = {
-  getGithubRepos: PropTypes.func.isRequired,
-  repos: PropTypes.array.isRequired,
   username: PropTypes.string.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  repos: state.profile.repos
-});
-
-export default connect(mapStateToProps, { getGithubRepos })(ProfileGithub);
+export default ProfileGithub;

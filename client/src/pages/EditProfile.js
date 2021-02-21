@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -19,7 +20,6 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
     youtube: '',
     instagram: ''
   });
-
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
   useEffect(() => {

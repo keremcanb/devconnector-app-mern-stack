@@ -14,9 +14,7 @@ const AddEducation = ({ addEducation, history }) => {
     current: false,
     description: ''
   });
-
   const [toDateDisabled, toggleDisabled] = useState(false);
-
   const { school, degree, fieldofstudy, from, to, description, current } = formData;
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });

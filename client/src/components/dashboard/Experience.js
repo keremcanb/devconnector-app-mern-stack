@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import moment from 'moment';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteExperience } from '../../store/actions/profile';
 
-const Experience = ({ experience, deleteExperience }) => {
+const Experience = ({ experience }) => {
+  const dispatch = useDispatch();
+
   const experiences = experience.map(({ _id, title, company, from, to }) => (
     <tr key={_id}>
       <td>{company}</td>
@@ -14,7 +15,7 @@ const Experience = ({ experience, deleteExperience }) => {
         {to === null ? ' Now' : <Moment format="YYYY/MM/DD">{moment.utc(to)} </Moment>}
       </td>
       <td>
-        <button onClick={() => deleteExperience(_id)} className="btn btn-danger">
+        <button onClick={() => dispatch(deleteExperience(_id))} className="btn btn-danger">
           Delete
         </button>
       </td>
@@ -39,9 +40,4 @@ const Experience = ({ experience, deleteExperience }) => {
   );
 };
 
-Experience.propTypes = {
-  experience: PropTypes.array.isRequired,
-  deleteExperience: PropTypes.func.isRequired
-};
-
-export default connect(null, { deleteExperience })(Experience);
+export default Experience;

@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import moment from 'moment';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteEducation } from '../../store/actions/profile';
 
-const Education = ({ education, deleteEducation }) => {
+const Education = ({ education }) => {
+  const dispatch = useDispatch();
+
   const educations = education.map(({ _id, school, degree, from, to }) => (
     <tr key={_id}>
       <td>{school}</td>
@@ -14,7 +15,7 @@ const Education = ({ education, deleteEducation }) => {
         {to === null ? ' Now' : <Moment format="YYYY/MM/DD">{moment.utc(to)} </Moment>}
       </td>
       <td>
-        <button onClick={() => deleteEducation(_id)} className="btn btn-danger">
+        <button onClick={() => dispatch(deleteEducation(_id))} className="btn btn-danger">
           Delete
         </button>
       </td>
@@ -39,9 +40,4 @@ const Education = ({ education, deleteEducation }) => {
   );
 };
 
-Education.propTypes = {
-  education: PropTypes.array.isRequired,
-  deleteEducation: PropTypes.func.isRequired
-};
-
-export default connect(null, { deleteEducation })(Education);
+export default Education;

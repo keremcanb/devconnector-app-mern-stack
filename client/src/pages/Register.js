@@ -13,7 +13,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     password: '',
     passwordConfirm: ''
   });
-
   const { name, email, password, passwordConfirm } = formData;
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
