@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../components/layout/Spinner';
 import ProfileItem from '../components/profile/ProfileItem';
@@ -31,11 +30,6 @@ const Profiles = ({ getAllProfiles, profile: { profiles, loading } }) => {
       )}
     </>
   );
-};
-
-Profiles.propTypes = {
-  getAllProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({

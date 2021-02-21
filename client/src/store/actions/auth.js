@@ -35,7 +35,7 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const register = ({ name, email, password }) => async (dispatch) => {
+export const registerUser = ({ name, email, password }) => async (dispatch) => {
   const body = JSON.stringify({ name, email, password });
   try {
     const { data } = await post('/api/users', body, headers);
@@ -55,7 +55,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   }
 };
 
-export const login = (email, password) => async (dispatch) => {
+export const loginUser = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
   try {
     const { data } = await post('/api/auth', body, headers);
@@ -75,7 +75,7 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
+export const logoutUser = () => (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGithubRepos } from '../../store/actions/profile';
 import Spinner from '../layout/Spinner';
@@ -42,10 +41,6 @@ const ProfileGithub = ({ username }) => {
       )}
     </div>
   );
-};
-
-ProfileGithub.propTypes = {
-  username: PropTypes.string.isRequired
 };
 
 export default ProfileGithub;

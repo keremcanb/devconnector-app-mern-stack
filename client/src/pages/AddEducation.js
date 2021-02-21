@@ -16,9 +16,9 @@ const AddEducation = ({ history }) => {
   const { school, degree, fieldofstudy, from, to, description, current } = formData;
   const dispatch = useDispatch();
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChangeHandler = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(addEducation(formData, history));
   };
@@ -30,7 +30,7 @@ const AddEducation = ({ history }) => {
         <i className="fas fa-graduation-cap" /> Add any school, bootcamp, etc that you have attended
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit={onSubmit}>
+      <form className="form" onSubmit={onSubmitHandler}>
         <div className="form-group">
           <input
             type="text"
@@ -38,7 +38,7 @@ const AddEducation = ({ history }) => {
             name="school"
             value={school}
             required
-            onChange={onChange}
+            onChange={onChangeHandler}
           />
         </div>
         <div className="form-group">
@@ -48,7 +48,7 @@ const AddEducation = ({ history }) => {
             name="degree"
             required
             value={degree}
-            onChange={onChange}
+            onChange={onChangeHandler}
           />
         </div>
         <div className="form-group">
@@ -57,12 +57,12 @@ const AddEducation = ({ history }) => {
             placeholder="Field Of Study"
             name="fieldofstudy"
             value={fieldofstudy}
-            onChange={onChange}
+            onChange={onChangeHandler}
           />
         </div>
         <div className="form-group">
           <h4>From Date</h4>
-          <input type="date" name="from" value={from} onChange={onChange} />
+          <input type="date" name="from" value={from} onChange={onChangeHandler} />
         </div>
         <div className="form-group">
           <p>
@@ -81,7 +81,13 @@ const AddEducation = ({ history }) => {
         </div>
         <div className="form-group">
           <h4>To Date</h4>
-          <input type="date" name="to" value={to} onChange={onChange} disabled={toDateDisabled ? 'disabled' : ''} />
+          <input
+            type="date"
+            name="to"
+            value={to}
+            onChange={onChangeHandler}
+            disabled={toDateDisabled ? 'disabled' : ''}
+          />
         </div>
         <div className="form-group">
           <textarea
@@ -90,7 +96,7 @@ const AddEducation = ({ history }) => {
             rows="5"
             placeholder="Program Description"
             value={description}
-            onChange={onChange}
+            onChange={onChangeHandler}
           />
         </div>
         <input type="submit" className="btn btn-primary my-1" />

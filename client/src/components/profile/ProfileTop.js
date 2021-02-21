@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 const ProfileTop = ({
   profile: {
     status,
@@ -51,9 +49,5 @@ const ProfileTop = ({
     </div>
   </div>
 );
-
-ProfileTop.propTypes = {
-  profile: PropTypes.object.isRequired
-};
 
 export default ProfileTop;

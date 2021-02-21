@@ -16,9 +16,9 @@ const AddExperience = ({ history }) => {
   const { company, title, location, from, to, current, description } = formData;
   const dispatch = useDispatch();
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChangeHandler = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(addExperience(formData, history));
   };
@@ -30,19 +30,26 @@ const AddExperience = ({ history }) => {
         <i className="fas fa-code-branch" /> Add any developer/programming positions that you have had in the past
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit={onSubmit}>
+      <form className="form" onSubmit={onSubmitHandler}>
         <div className="form-group">
-          <input type="text" placeholder="* Job Title" name="title" value={title} required onChange={onChange} />
+          <input type="text" placeholder="* Job Title" name="title" value={title} required onChange={onChangeHandler} />
         </div>
         <div className="form-group">
-          <input type="text" placeholder="* Company" name="company" value={company} required onChange={onChange} />
+          <input
+            type="text"
+            placeholder="* Company"
+            name="company"
+            value={company}
+            required
+            onChange={onChangeHandler}
+          />
         </div>
         <div className="form-group">
-          <input type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
+          <input type="text" placeholder="Location" name="location" value={location} onChange={onChangeHandler} />
         </div>
         <div className="form-group">
           <h4>From Date</h4>
-          <input type="date" name="from" value={from} onChange={onChange} />
+          <input type="date" name="from" value={from} onChange={onChangeHandler} />
         </div>
         <div className="form-group">
           <p>
@@ -61,7 +68,13 @@ const AddExperience = ({ history }) => {
         </div>
         <div className="form-group">
           <h4>To Date</h4>
-          <input type="date" name="to" value={to} onChange={onChange} disabled={toDateDisabled ? 'disabled' : ''} />
+          <input
+            type="date"
+            name="to"
+            value={to}
+            onChange={onChangeHandler}
+            disabled={toDateDisabled ? 'disabled' : ''}
+          />
         </div>
         <div className="form-group">
           <textarea
@@ -70,7 +83,7 @@ const AddExperience = ({ history }) => {
             cols="30"
             rows="5"
             placeholder="Job Description"
-            onChange={onChange}
+            onChange={onChangeHandler}
           />
         </div>
         <input type="submit" className="btn btn-primary my-1" />

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../store/actions/auth';
+import { loginUser } from '../store/actions/auth';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -10,11 +10,11 @@ const Login = () => {
   const authState = useSelector((state) => state.auth);
   const { isAuthenticated } = authState;
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChangeHandler = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(loginUser(email, password));
   };
 
   if (isAuthenticated) {
@@ -28,9 +28,9 @@ const Login = () => {
         <i className="fas fa-user" />
         Sign into Your Account
       </p>
-      <form className="form" onSubmit={onSubmit}>
+      <form className="form" onSubmit={onSubmitHandler}>
         <div className="form-group">
-          <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChange} />
+          <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChangeHandler} />
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a Gravatar email
           </small>
@@ -42,7 +42,7 @@ const Login = () => {
             name="password"
             minLength="6"
             value={password}
-            onChange={onChange}
+            onChange={onChangeHandler}
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Login" />

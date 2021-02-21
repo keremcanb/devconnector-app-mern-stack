@@ -35,9 +35,9 @@ const CreateProfile = ({ history }) => {
   } = formData;
   const dispatch = useDispatch();
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChangeHandler = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(createProfile(formData, history));
   };
@@ -49,9 +49,9 @@ const CreateProfile = ({ history }) => {
         <i className="fas fa-user" /> Let&apos;s get some information to make your profile stand out
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit={(e) => onSubmit(e)}>
+      <form className="form" onSubmit={(e) => onSubmitHandler(e)}>
         <div className="form-group">
-          <select name="status" value={status} onBlur={(e) => onChange(e)}>
+          <select name="status" value={status} onBlur={(e) => onChangeHandler(e)}>
             <option value="0">* Select Professional Status</option>
             <option value="Developer">Developer</option>
             <option value="Junior Developer">Junior Developer</option>
@@ -65,19 +65,37 @@ const CreateProfile = ({ history }) => {
           <small className="form-text">Give us an idea of where you are at in your career</small>
         </div>
         <div className="form-group">
-          <input type="text" placeholder="Company" name="company" value={company} onChange={(e) => onChange(e)} />
+          <input
+            type="text"
+            placeholder="Company"
+            name="company"
+            value={company}
+            onChange={(e) => onChangeHandler(e)}
+          />
           <small className="form-text">Could be your own company or one you work for</small>
         </div>
         <div className="form-group">
-          <input type="text" placeholder="Website" name="website" value={website} onChange={(e) => onChange(e)} />
+          <input
+            type="text"
+            placeholder="Website"
+            name="website"
+            value={website}
+            onChange={(e) => onChangeHandler(e)}
+          />
           <small className="form-text">Could be your own or a company website</small>
         </div>
         <div className="form-group">
-          <input type="text" placeholder="Location" name="location" value={location} onChange={(e) => onChange(e)} />
+          <input
+            type="text"
+            placeholder="Location"
+            name="location"
+            value={location}
+            onChange={(e) => onChangeHandler(e)}
+          />
           <small className="form-text">City & state suggested (eg. Boston, MA)</small>
         </div>
         <div className="form-group">
-          <input type="text" placeholder="* Skills" name="skills" value={skills} onChange={(e) => onChange(e)} />
+          <input type="text" placeholder="* Skills" name="skills" value={skills} onChange={(e) => onChangeHandler(e)} />
           <small className="form-text">Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)</small>
         </div>
         <div className="form-group">
@@ -86,12 +104,12 @@ const CreateProfile = ({ history }) => {
             placeholder="Github Username"
             name="githubusername"
             value={githubusername}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => onChangeHandler(e)}
           />
           <small className="form-text">If you want your latest repos and a Github link, include your username</small>
         </div>
         <div className="form-group">
-          <textarea placeholder="A short bio of yourself" name="bio" value={bio} onChange={(e) => onChange(e)} />
+          <textarea placeholder="A short bio of yourself" name="bio" value={bio} onChange={(e) => onChangeHandler(e)} />
           <small className="form-text">Tell us a little about yourself</small>
         </div>
 
@@ -111,7 +129,7 @@ const CreateProfile = ({ history }) => {
                 placeholder="Twitter URL"
                 name="twitter"
                 value={twitter}
-                onChange={(e) => onChange(e)}
+                onChange={(e) => onChangeHandler(e)}
               />
             </div>
 
@@ -122,7 +140,7 @@ const CreateProfile = ({ history }) => {
                 placeholder="Facebook URL"
                 name="facebook"
                 value={facebook}
-                onChange={(e) => onChange(e)}
+                onChange={(e) => onChangeHandler(e)}
               />
             </div>
 
@@ -133,7 +151,7 @@ const CreateProfile = ({ history }) => {
                 placeholder="YouTube URL"
                 name="youtube"
                 value={youtube}
-                onChange={(e) => onChange(e)}
+                onChange={(e) => onChangeHandler(e)}
               />
             </div>
 
@@ -144,7 +162,7 @@ const CreateProfile = ({ history }) => {
                 placeholder="Linkedin URL"
                 name="linkedin"
                 value={linkedin}
-                onChange={(e) => onChange(e)}
+                onChange={(e) => onChangeHandler(e)}
               />
             </div>
 
@@ -155,7 +173,7 @@ const CreateProfile = ({ history }) => {
                 placeholder="Instagram URL"
                 name="instagram"
                 value={instagram}
-                onChange={(e) => onChange(e)}
+                onChange={(e) => onChangeHandler(e)}
               />
             </div>
           </>
