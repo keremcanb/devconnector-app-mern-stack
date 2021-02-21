@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { get, post } from 'axios';
 import { setAlert } from './alert';
 import setAuthToken from '../../utils/setAuthToken';
 import {
@@ -18,14 +18,12 @@ const headers = {
   }
 };
 
-// Load user
-// We must use Redux Thunk middleware to make an async Axios request from the action creator.
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await axios.get('/api/auth');
+    const res = await get('/api/auth');
     dispatch({
       type: USER_LOADED,
       payload: res.data
@@ -37,11 +35,10 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-// Register user
 export const register = ({ name, email, password }) => async (dispatch) => {
   const body = JSON.stringify({ name, email, password });
   try {
-    const res = await axios.post('/api/users', body, headers);
+    const res = await post('/api/users', body, headers);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
@@ -58,11 +55,10 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   }
 };
 
-// Login user
 export const login = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
   try {
-    const res = await axios.post('/api/auth', body, headers);
+    const res = await post('/api/auth', body, headers);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -79,7 +75,6 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-// Logout / Clear profile
 export const logout = () => (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });

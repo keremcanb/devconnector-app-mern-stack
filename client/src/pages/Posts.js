@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import PostItem from '../components/posts/PostItem';
-import PostForm from '../components/posts/PostForm';
+import PostItem from '../components/post/PostItem';
+import PostForm from '../components/post/PostForm';
 import Spinner from '../components/layout/Spinner';
 import { getPosts } from '../store/actions/post';
 
