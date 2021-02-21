@@ -1,4 +1,4 @@
-import { get, post } from 'axios';
+import api from '../../utils/api';
 import { setAlert } from './alert';
 import setAuthToken from '../../utils/setAuthToken';
 import {
@@ -12,18 +12,12 @@ import {
   CLEAR_PROFILE
 } from '../types';
 
-const headers = {
-  headers: {
-    'Content-Type': 'application/json'
-  }
-};
-
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
   try {
-    const { data } = await get('/api/auth');
+    const { data } = await api.get('/auth');
     dispatch({
       type: USER_LOADED,
       payload: data
@@ -38,7 +32,7 @@ export const loadUser = () => async (dispatch) => {
 export const registerUser = ({ name, email, password }) => async (dispatch) => {
   const body = JSON.stringify({ name, email, password });
   try {
-    const { data } = await post('/api/users', body, headers);
+    const { data } = await api.post('/users', body);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: data
@@ -58,7 +52,7 @@ export const registerUser = ({ name, email, password }) => async (dispatch) => {
 export const loginUser = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
   try {
-    const { data } = await post('/api/auth', body, headers);
+    const { data } = await api.post('/auth', body);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data
