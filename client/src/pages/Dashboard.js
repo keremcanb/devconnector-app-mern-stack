@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
-import DashboardActions from './DashboardActions';
-import Experience from './Experience';
-import Education from './Education';
-import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import Spinner from '../components/layout/Spinner';
+import DashboardActions from '../components/dashboard/DashboardActions';
+import Experience from '../components/dashboard/Experience';
+import Education from '../components/dashboard/Education';
+import { getCurrentProfile, deleteAccount } from '../store/actions/profile';
 
-const Dashboard = ({
-  getCurrentProfile,
-  deleteAccount,
-  auth: { user },
-  profile: { profile, loading }
-}) => {
+const Dashboard = ({ getCurrentProfile, deleteAccount, auth: { user }, profile: { profile, loading } }) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
@@ -62,6 +57,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
-  Dashboard
-);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);

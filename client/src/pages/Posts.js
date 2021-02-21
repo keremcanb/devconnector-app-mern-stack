@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import PostItem from './PostItem';
-import PostForm from './PostForm';
-import Spinner from '../layout/Spinner';
-import { getPosts } from '../../actions/post';
+import PostItem from '../components/posts/PostItem';
+import PostForm from '../components/posts/PostForm';
+import Spinner from '../components/layout/Spinner';
+import { getPosts } from '../store/actions/post';
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {
   useEffect(() => {

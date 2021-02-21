@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
-import ProfileTop from './ProfileTop';
-import ProfileAbout from './ProfileAbout';
-import ProfileExperience from './ProfileExperience';
-import ProfileEducation from './ProfileEducation';
-import ProfileGithub from './ProfileGithub';
-import { getProfileById } from '../../actions/profile';
+import Spinner from '../components/layout/Spinner';
+import ProfileTop from '../components/profile/ProfileTop';
+import ProfileAbout from '../components/profile/ProfileAbout';
+import ProfileExperience from '../components/profile/ProfileExperience';
+import ProfileEducation from '../components/profile/ProfileEducation';
+import ProfileGithub from '../components/profile/ProfileGithub';
+import { getProfileById } from '../store/actions/profile';
 
-const Profile = ({
-  getProfileById,
-  profile: { profile },
-  auth: { isAuthenticated, loading, user },
-  match
-}) => {
+const Profile = ({ getProfileById, profile: { profile }, auth: { isAuthenticated, loading, user }, match }) => {
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
@@ -27,13 +22,11 @@ const Profile = ({
           <Link to="/profiles" className="btn btn-light">
             Back To Profiles
           </Link>
-          {isAuthenticated &&
-            loading === false &&
-            user._id === profile.user._id && (
-              <Link to="/edit-profile" className="btn btn-dark">
-                Edit Profile
-              </Link>
-            )}
+          {isAuthenticated && loading === false && user._id === profile.user._id && (
+            <Link to="/edit-profile" className="btn btn-dark">
+              Edit Profile
+            </Link>
+          )}
           <div className="profile-grid my-1">
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
@@ -42,10 +35,7 @@ const Profile = ({
               {profile.experience.length > 0 ? (
                 <>
                   {profile.experience.map((experience) => (
-                    <ProfileExperience
-                      key={experience._id}
-                      experience={experience}
-                    />
+                    <ProfileExperience key={experience._id} experience={experience} />
                   ))}
                 </>
               ) : (
@@ -58,10 +48,7 @@ const Profile = ({
               {profile.education.length > 0 ? (
                 <>
                   {profile.education.map((education) => (
-                    <ProfileEducation
-                      key={education._id}
-                      education={education}
-                    />
+                    <ProfileEducation key={education._id} education={education} />
                   ))}
                 </>
               ) : (
@@ -69,9 +56,7 @@ const Profile = ({
               )}
             </div>
 
-            {profile.githubusername && (
-              <ProfileGithub username={profile.githubusername} />
-            )}
+            {profile.githubusername && <ProfileGithub username={profile.githubusername} />}
           </div>
         </>
       ) : (

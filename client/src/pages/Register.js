@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setAlert } from '../../actions/alert';
-import { register } from '../../actions/auth';
+import { setAlert } from '../store/actions/alert';
+import { register } from '../store/actions/auth';
 
 // We are taking setAlert & register functions from action creater, and isAuthenticated boolean from Redux store.
 const Register = ({ setAlert, register, isAuthenticated }) => {
@@ -11,19 +11,18 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     name: '',
     email: '',
     password: '',
-    password2: ''
+    passwordConfirm: ''
   });
 
-  const { name, email, password, password2 } = formData;
+  const { name, email, password, passwordConfirm } = formData;
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     // If passwords match, we are calling register action creator function and making an axios post request.
-    if (password !== password2) {
+    if (password !== passwordConfirm) {
       setAlert('Passwords do not match', 'danger');
     } else {
       register({ name, email, password });
@@ -42,25 +41,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       </p>
       <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={name}
-            onChange={onChange}
-          />
+          <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
         </div>
         <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
-            onChange={onChange}
-          />
+          <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChange} />
           <small className="form-text">
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
+            This site uses Gravatar so if you want a profile image, use a Gravatar email
           </small>
         </div>
         <div className="form-group">
@@ -77,9 +63,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           <input
             type="password"
             placeholder="Confirm Password"
-            name="password2"
+            name="passwordConfirm"
             minLength="6"
-            value={password2}
+            value={passwordConfirm}
             onChange={onChange}
           />
         </div>
