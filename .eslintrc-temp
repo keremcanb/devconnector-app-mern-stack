@@ -11,10 +11,12 @@
   },
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
-    "no-console": "off",
-    "comma-dangle": "off",
-    "consistent-return": "off",
-    "array-callback-return": "off",
-    "object-curly-newline": "off"
+    "no-console": 0,
+    "comma-dangle": 0,
+    "consistent-return": 0,
+    "array-callback-return": 0,
+    "object-curly-newline": 0,
+    "no-underscore-dangle ": 0,
+    "camelcase": 0
   }
 }
