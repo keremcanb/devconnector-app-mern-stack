@@ -92,7 +92,7 @@ const CreateProfile = ({ history }) => {
             value={location}
             onChange={(e) => onChangeHandler(e)}
           />
-          <small className="form-text">City & state suggested (eg. Boston, MA)</small>
+          <small className="form-text">City and state suggested (eg. Boston, MA)</small>
         </div>
         <div className="form-group">
           <input type="text" placeholder="* Skills" name="skills" value={skills} onChange={(e) => onChangeHandler(e)} />

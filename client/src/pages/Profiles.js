@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../components/layout/Spinner';
 import ProfileItem from '../components/profile/ProfileItem';
 import { getAllProfiles } from '../store/actions/profile';
 
-const Profiles = ({ getAllProfiles, profile: { profiles, loading } }) => {
+const Profiles = () => {
+  const dispatch = useDispatch();
+  const profileState = useSelector((state) => state.profile);
+  const { profiles, loading } = profileState;
+
   useEffect(() => {
-    getAllProfiles();
-  }, [getAllProfiles]);
+    dispatch(getAllProfiles());
+  }, [dispatch]);
 
   return (
     <>
@@ -32,8 +36,4 @@ const Profiles = ({ getAllProfiles, profile: { profiles, loading } }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  profile: state.profile
-});
-
-export default connect(mapStateToProps, { getAllProfiles })(Profiles);
+export default Profiles;

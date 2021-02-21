@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../store/actions/auth';
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
+const Navbar = () => {
+  const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth);
+  const { isAuthenticated, loading } = authState;
+
   const authLinks = (
     <ul>
       <li>
@@ -17,7 +21,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
         </Link>
       </li>
       <li>
-        <a onClick={logoutUser} href="#!">
+        <a onClick={dispatch(logoutUser)} href="#!">
           <i className="fas fa-sign-out-alt" /> <span className="hide-sm">Logout</span>
         </a>
       </li>
@@ -50,8 +54,4 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth
-});
-
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+export default Navbar;
