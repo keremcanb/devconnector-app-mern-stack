@@ -21,7 +21,6 @@ const Register = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-
     // If passwords match, we are calling register action creator function and making an axios post request.
     if (password !== passwordConfirm) {
       dispatch(setAlert('Passwords do not match', 'danger'));
@@ -33,7 +32,6 @@ const Register = () => {
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
-
   return (
     <>
       <h1 className="large text-primary">Sign Up</h1>

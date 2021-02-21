@@ -17,7 +17,6 @@ const PostItem = ({ post: { _id, text, name, avatar, user, likes, comments, date
       <div>
         <p className="my-1">{text}</p>
         <p className="post-date">Posted on {formatDate(date)}</p>
-
         {showActions && (
           <>
             <button onClick={() => dispatch(addLike(_id))} type="button" className="btn btn-light">

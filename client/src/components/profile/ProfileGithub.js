@@ -15,7 +15,6 @@ const ProfileGithub = ({ username }) => {
   return (
     <div className="profile-github">
       <h2 className="text-primary my-1">Github Repos</h2>
-
       {repos !== null ? (
         repos.map(({ id, name, html_url, description, stargazers_count, watchers_count, forks_count }) => (
           <div key={id} className="repo bg-white p-1 my-1">

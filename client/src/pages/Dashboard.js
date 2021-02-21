@@ -29,7 +29,6 @@ const Dashboard = () => {
           <DashboardActions />
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
-
           <div className="my-2">
             <button onClick={() => dispatch(deleteAccount())} className="btn btn-danger">
               <i className="fas fa-user-minus"> Delete My Account</i>

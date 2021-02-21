@@ -20,7 +20,6 @@ const Login = () => {
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
-
   return (
     <>
       <h1 className="large text-primary">Sign In</h1>

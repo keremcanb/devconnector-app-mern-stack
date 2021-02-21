@@ -112,14 +112,12 @@ const CreateProfile = ({ history }) => {
           <textarea placeholder="A short bio of yourself" name="bio" value={bio} onChange={(e) => onChangeHandler(e)} />
           <small className="form-text">Tell us a little about yourself</small>
         </div>
-
         <div className="my-2">
           <button onClick={() => toggleSocialInputs(!displaySocialInputs)} type="button" className="btn btn-light">
             Add Social Network Links
           </button>
           <span>Optional</span>
         </div>
-
         {displaySocialInputs && (
           <>
             <div className="form-group social-input">
@@ -132,7 +130,6 @@ const CreateProfile = ({ history }) => {
                 onChange={(e) => onChangeHandler(e)}
               />
             </div>
-
             <div className="form-group social-input">
               <i className="fab fa-facebook fa-2x" />
               <input
@@ -143,7 +140,6 @@ const CreateProfile = ({ history }) => {
                 onChange={(e) => onChangeHandler(e)}
               />
             </div>
-
             <div className="form-group social-input">
               <i className="fab fa-youtube fa-2x" />
               <input
@@ -154,7 +150,6 @@ const CreateProfile = ({ history }) => {
                 onChange={(e) => onChangeHandler(e)}
               />
             </div>
-
             <div className="form-group social-input">
               <i className="fab fa-linkedin fa-2x" />
               <input
@@ -165,7 +160,6 @@ const CreateProfile = ({ history }) => {
                 onChange={(e) => onChangeHandler(e)}
               />
             </div>
-
             <div className="form-group social-input">
               <i className="fab fa-instagram fa-2x" />
               <input
@@ -178,7 +172,6 @@ const CreateProfile = ({ history }) => {
             </div>
           </>
         )}
-
         <input type="submit" className="btn btn-primary my-1" />
         <Link className="btn btn-light my-1" to="/dashboard">
           Go Back
