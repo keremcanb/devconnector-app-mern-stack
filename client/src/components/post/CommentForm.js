@@ -3,22 +3,21 @@ import { useDispatch } from 'react-redux';
 import { addComment } from '../../store/actions/post';
 
 const CommentForm = ({ postId }) => {
-  const dispatch = useDispatch();
   const [text, setText] = useState('');
+  const dispatch = useDispatch();
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    dispatch(addComment(postId, { text }));
+    setText('');
+  };
 
   return (
     <div className="post-form">
       <div className="bg-primary p">
         <h3>Leave a Comment</h3>
       </div>
-      <form
-        className="form my-1"
-        onSubmit={(e) => {
-          e.preventDefault();
-          dispatch(addComment(postId, { text }));
-          setText('');
-        }}
-      >
+      <form className="form my-1" onSubmit={onSubmitHandler}>
         <textarea
           name="text"
           cols="30"

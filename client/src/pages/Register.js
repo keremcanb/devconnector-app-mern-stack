@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAlert } from '../store/actions/alert';
 import { registerUser } from '../store/actions/auth';
 
-// We are taking setAlert & register functions from action creater, and isAuthenticated boolean from Redux store.
 const Register = () => {
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth);
