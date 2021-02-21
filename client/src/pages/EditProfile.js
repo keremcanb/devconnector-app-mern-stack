@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../store/actions/profile';
 
-const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentProfile, history }) => {
+const EditProfile = ({ history }) => {
   const [formData, setFormData] = useState({
     company: '',
     website: '',
@@ -21,9 +20,12 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
     instagram: ''
   });
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+  const dispatch = useDispatch();
+  const profileState = useSelector((state) => state.profile);
+  const { profile, loading } = profileState;
 
   useEffect(() => {
-    getCurrentProfile();
+    dispatch(getCurrentProfile());
 
     setFormData({
       company: loading || !profile.company ? '' : profile.company,
@@ -39,7 +41,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
       youtube: loading || !profile.social ? '' : profile.social.youtube,
       instagram: loading || !profile.social ? '' : profile.social.instagram
     });
-  }, [loading]);
+  }, []);
 
   const {
     company,
@@ -60,7 +62,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, history, true);
+    dispatch(createProfile(formData, history, true));
   };
 
   return (
@@ -191,14 +193,4 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
   );
 };
 
-EditProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  profile: state.profile
-});
-
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(EditProfile));
+export default EditProfile;

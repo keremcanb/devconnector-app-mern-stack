@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../components/layout/Spinner';
 import ProfileTop from '../components/profile/ProfileTop';
 import ProfileAbout from '../components/profile/ProfileAbout';
@@ -10,10 +9,16 @@ import ProfileEducation from '../components/profile/ProfileEducation';
 import ProfileGithub from '../components/profile/ProfileGithub';
 import { getProfileById } from '../store/actions/profile';
 
-const Profile = ({ getProfileById, profile: { profile }, auth: { isAuthenticated, loading, user }, match }) => {
+const Profile = ({ match }) => {
+  const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth);
+  const { isAuthenticated, loading, user } = authState;
+  const profileState = useSelector((state) => state.profile);
+  const { profile } = profileState;
+
   useEffect(() => {
-    getProfileById(match.params.id);
-  }, [getProfileById, match.params.id]);
+    dispatch(getProfileById(match.params.id));
+  }, [dispatch, match]);
 
   return (
     <>
@@ -66,15 +71,4 @@ const Profile = ({ getProfileById, profile: { profile }, auth: { isAuthenticated
   );
 };
 
-Profile.propTypes = {
-  getProfileById: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  profile: state.profile,
-  auth: state.auth
-});
-
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default Profile;

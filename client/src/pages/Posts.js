@@ -1,15 +1,18 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PostItem from '../components/post/PostItem';
 import PostForm from '../components/post/PostForm';
 import Spinner from '../components/layout/Spinner';
 import { getPosts } from '../store/actions/post';
 
-const Posts = ({ getPosts, post: { posts, loading } }) => {
+const Posts = () => {
+  const dispatch = useDispatch();
+  const postState = useSelector((state) => state.post);
+  const { posts, loading } = postState;
+
   useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return !loading ? (
     <>
@@ -29,13 +32,4 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
   );
 };
 
-Posts.propTypes = {
-  getPosts: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  post: state.post
-});
-
-export default connect(mapStateToProps, { getPosts })(Posts);
+export default Posts;

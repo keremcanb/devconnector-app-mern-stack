@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { createProfile } from '../store/actions/profile';
 
-const CreateProfile = ({ createProfile, history }) => {
+const CreateProfile = ({ history }) => {
   const [formData, setFormData] = useState({
     company: '',
     website: '',
@@ -34,12 +33,13 @@ const CreateProfile = ({ createProfile, history }) => {
     youtube,
     instagram
   } = formData;
+  const dispatch = useDispatch();
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, history);
+    dispatch(createProfile(formData, history));
   };
 
   return (
@@ -170,8 +170,4 @@ const CreateProfile = ({ createProfile, history }) => {
   );
 };
 
-CreateProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired
-};
-
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+export default CreateProfile;

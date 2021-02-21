@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addEducation } from '../store/actions/profile';
 
-const AddEducation = ({ addEducation, history }) => {
+const AddEducation = ({ history }) => {
   const [formData, setFormData] = useState({
     school: '',
     degree: '',
@@ -16,12 +14,13 @@ const AddEducation = ({ addEducation, history }) => {
   });
   const [toDateDisabled, toggleDisabled] = useState(false);
   const { school, degree, fieldofstudy, from, to, description, current } = formData;
+  const dispatch = useDispatch();
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addEducation(formData, history);
+    dispatch(addEducation(formData, history));
   };
 
   return (
@@ -103,8 +102,4 @@ const AddEducation = ({ addEducation, history }) => {
   );
 };
 
-AddEducation.propTypes = {
-  addEducation: PropTypes.func.isRequired
-};
-
-export default connect(null, { addEducation })(withRouter(AddEducation));
+export default AddEducation;

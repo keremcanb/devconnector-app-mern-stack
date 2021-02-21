@@ -1,17 +1,22 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../components/layout/Spinner';
 import DashboardActions from '../components/dashboard/DashboardActions';
 import Experience from '../components/dashboard/Experience';
 import Education from '../components/dashboard/Education';
 import { getCurrentProfile, deleteAccount } from '../store/actions/profile';
 
-const Dashboard = ({ getCurrentProfile, deleteAccount, auth: { user }, profile: { profile, loading } }) => {
+const Dashboard = () => {
+  const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
+  const profileState = useSelector((state) => state.profile);
+  const { profile, loading } = profileState;
+
   useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+    dispatch(getCurrentProfile());
+  }, [dispatch]);
 
   return !(loading && profile === null) ? (
     <>
@@ -26,7 +31,7 @@ const Dashboard = ({ getCurrentProfile, deleteAccount, auth: { user }, profile: 
           <Education education={profile.education} />
 
           <div className="my-2">
-            <button onClick={() => deleteAccount()} className="btn btn-danger">
+            <button onClick={() => dispatch(deleteAccount())} className="btn btn-danger">
               <i className="fas fa-user-minus"> Delete My Account</i>
             </button>
           </div>
@@ -45,16 +50,4 @@ const Dashboard = ({ getCurrentProfile, deleteAccount, auth: { user }, profile: 
   );
 };
 
-Dashboard.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
-  deleteAccount: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  profile: state.profile
-});
-
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
+export default Dashboard;

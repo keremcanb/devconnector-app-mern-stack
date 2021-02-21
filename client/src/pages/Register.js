@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAlert } from '../store/actions/alert';
 import { register } from '../store/actions/auth';
 
 // We are taking setAlert & register functions from action creater, and isAuthenticated boolean from Redux store.
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = () => {
+  const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth);
+  const { isAuthenticated } = authState;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,9 +25,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
     // If passwords match, we are calling register action creator function and making an axios post request.
     if (password !== passwordConfirm) {
-      setAlert('Passwords do not match', 'danger');
+      dispatch(setAlert('Passwords do not match', 'danger'));
     } else {
-      register({ name, email, password });
+      dispatch(register({ name, email, password }));
     }
   };
 
@@ -77,15 +80,4 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   );
 };
 
-Register.propTypes = {
-  setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
-};
-
-// We are taking isAuthenticated state from Redux auth and assigning to isAuthenticated prop.
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps, { setAlert, register })(Register);
+export default Register;
