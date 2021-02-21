@@ -1,6 +1,5 @@
-import Moment from 'react-moment';
-import moment from 'moment';
 import { useDispatch } from 'react-redux';
+import formatDate from '../../utils/formatDate';
 import { deleteExperience } from '../../store/actions/profile';
 
 const Experience = ({ experience }) => {
@@ -11,8 +10,7 @@ const Experience = ({ experience }) => {
       <td>{company}</td>
       <td className="hide-sm">{title}</td>
       <td>
-        <Moment format="YYYY/MM/DD">{moment.utc(from)} </Moment> -{' '}
-        {to === null ? ' Now' : <Moment format="YYYY/MM/DD">{moment.utc(to)} </Moment>}
+        {formatDate(from)} - {to ? formatDate(to) : 'Now'}
       </td>
       <td>
         <button onClick={() => dispatch(deleteExperience(_id))} className="btn btn-danger">

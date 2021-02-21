@@ -1,6 +1,5 @@
-import Moment from 'react-moment';
-import moment from 'moment';
 import { useDispatch } from 'react-redux';
+import formatDate from '../../utils/formatDate';
 import { deleteEducation } from '../../store/actions/profile';
 
 const Education = ({ education }) => {
@@ -11,8 +10,7 @@ const Education = ({ education }) => {
       <td>{school}</td>
       <td className="hide-sm">{degree}</td>
       <td>
-        <Moment format="YYYY/MM/DD">{moment.utc(from)} </Moment> -{' '}
-        {to === null ? ' Now' : <Moment format="YYYY/MM/DD">{moment.utc(to)} </Moment>}
+        {formatDate(from)} - {to ? formatDate(to) : 'Now'}
       </td>
       <td>
         <button onClick={() => dispatch(deleteEducation(_id))} className="btn btn-danger">
