@@ -12,7 +12,7 @@ const Login = () => {
 
   const onChangeHandler = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmitHandler = async (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(loginUser(email, password));
   };

@@ -1,26 +1,13 @@
 import api from '../../utils/api';
 import { setAlert } from './alert';
-import setAuthToken from '../../utils/setAuthToken';
-import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
-  CLEAR_PROFILE
-} from '../types';
+import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../types';
 
 export const loadUser = () => async (dispatch) => {
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
   try {
-    const { data } = await api.get('/auth');
+    const res = await api.get('/auth');
     dispatch({
       type: USER_LOADED,
-      payload: data
+      payload: res.data
     });
   } catch (err) {
     dispatch({
@@ -29,17 +16,17 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const registerUser = ({ name, email, password }) => async (dispatch) => {
-  const body = JSON.stringify({ name, email, password });
+export const registerUser = (formData) => async (dispatch) => {
   try {
-    const { data } = await api.post('/users', body);
+    const res = await api.post('/users', formData);
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: data
+      payload: res.data
     });
     dispatch(loadUser());
   } catch (err) {
     const { errors } = err.response.data;
+
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
@@ -50,12 +37,12 @@ export const registerUser = ({ name, email, password }) => async (dispatch) => {
 };
 
 export const loginUser = (email, password) => async (dispatch) => {
-  const body = JSON.stringify({ email, password });
+  const body = { email, password };
   try {
-    const { data } = await api.post('/auth', body);
+    const res = await api.post('/auth', body);
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: data
+      payload: res.data
     });
     dispatch(loadUser());
   } catch (err) {
@@ -69,7 +56,4 @@ export const loginUser = (email, password) => async (dispatch) => {
   }
 };
 
-export const logoutUser = () => (dispatch) => {
-  dispatch({ type: CLEAR_PROFILE });
-  dispatch({ type: LOGOUT });
-};
+export const logoutUser = () => ({ type: LOGOUT });
