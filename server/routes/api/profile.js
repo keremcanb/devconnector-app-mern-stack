@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 const express = require('express');
 const axios = require('axios');
 const config = require('config');
@@ -64,13 +63,8 @@ router.post(
     // build a profile
     const profileFields = {
       user: req.user.id,
-      website:
-        website && website !== ''
-          ? normalize(website, { forceHttps: true })
-          : '',
-      skills: Array.isArray(skills)
-        ? skills
-        : skills.split(',').map((skill) => ` ${skill.trim()}`),
+      website: website && website !== '' ? normalize(website, { forceHttps: true }) : '',
+      skills: Array.isArray(skills) ? skills : skills.split(',').map((skill) => ` ${skill.trim()}`),
       ...rest
     };
 
@@ -118,24 +112,20 @@ router.get('/', async (req, res) => {
 // @route    GET api/profile/user/:user_id
 // @desc     Get profile by user ID
 // @access   Public
-router.get(
-  '/user/:user_id',
-  checkObjectId('user_id'),
-  async ({ params: { user_id } }, res) => {
-    try {
-      const profile = await Profile.findOne({
-        user: user_id
-      }).populate('user', ['name', 'avatar']);
+router.get('/user/:user_id', checkObjectId('user_id'), async ({ params: { user_id } }, res) => {
+  try {
+    const profile = await Profile.findOne({
+      user: user_id
+    }).populate('user', ['name', 'avatar']);
 
-      if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+    if (!profile) return res.status(400).json({ msg: 'Profile not found' });
 
-      return res.json(profile);
-    } catch (err) {
-      console.error(err.message);
-      return res.status(500).json({ msg: 'Server error' });
-    }
+    return res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).json({ msg: 'Server error' });
   }
-);
+});
 
 // @route    DELETE api/profile
 // @desc     Delete profile, user & posts
@@ -198,9 +188,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
   try {
     const foundProfile = await Profile.findOne({ user: req.user.id });
 
-    foundProfile.experience = foundProfile.experience.filter(
-      (exp) => exp._id.toString() !== req.params.exp_id
-    );
+    foundProfile.experience = foundProfile.experience.filter((exp) => exp._id.toString() !== req.params.exp_id);
 
     await foundProfile.save();
     return res.status(200).json(foundProfile);
@@ -250,9 +238,7 @@ router.put(
 router.delete('/education/:edu_id', auth, async (req, res) => {
   try {
     const foundProfile = await Profile.findOne({ user: req.user.id });
-    foundProfile.education = foundProfile.education.filter(
-      (edu) => edu._id.toString() !== req.params.edu_id
-    );
+    foundProfile.education = foundProfile.education.filter((edu) => edu._id.toString() !== req.params.edu_id);
     await foundProfile.save();
     return res.status(200).json(foundProfile);
   } catch (error) {
@@ -266,9 +252,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 // @access   Public
 router.get('/github/:username', async (req, res) => {
   try {
-    const uri = encodeURI(
-      `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
-    );
+    const uri = encodeURI(`https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`);
     const headers = {
       'user-agent': 'node.js',
       Authorization: `token ${config.get('githubToken')}`
