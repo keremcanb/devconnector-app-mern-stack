@@ -4,10 +4,10 @@ import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS
 
 export const loadUser = () => async (dispatch) => {
   try {
-    const res = await api.get('/auth');
+    const { data } = await api.get('/auth');
     dispatch({
       type: USER_LOADED,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -18,10 +18,10 @@ export const loadUser = () => async (dispatch) => {
 
 export const registerUser = (formData) => async (dispatch) => {
   try {
-    const res = await api.post('/users', formData);
+    const { data } = await api.post('/users', formData);
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: res.data
+      payload: data
     });
     dispatch(loadUser());
   } catch (err) {
@@ -39,10 +39,10 @@ export const registerUser = (formData) => async (dispatch) => {
 export const loginUser = (email, password) => async (dispatch) => {
   const body = { email, password };
   try {
-    const res = await api.post('/auth', body);
+    const { data } = await api.post('/auth', body);
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data
+      payload: data
     });
     dispatch(loadUser());
   } catch (err) {

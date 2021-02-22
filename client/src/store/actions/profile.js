@@ -13,10 +13,10 @@ import {
 
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    const res = await api.get('/profile/me');
+    const { data } = await api.get('/profile/me');
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -29,10 +29,10 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const getAllProfiles = () => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   try {
-    const res = await api.get('/profile');
+    const { data } = await api.get('/profile');
     dispatch({
       type: GET_PROFILES,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -44,10 +44,10 @@ export const getAllProfiles = () => async (dispatch) => {
 
 export const getProfileById = (userId) => async (dispatch) => {
   try {
-    const res = await api.get(`/profile/user/${userId}`);
+    const { data } = await api.get(`/profile/user/${userId}`);
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -59,10 +59,10 @@ export const getProfileById = (userId) => async (dispatch) => {
 
 export const getGithubRepos = (username) => async (dispatch) => {
   try {
-    const res = await api.get(`/profile/github/${username}`);
+    const { data } = await api.get(`/profile/github/${username}`);
     dispatch({
       type: GET_REPOS,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -73,10 +73,10 @@ export const getGithubRepos = (username) => async (dispatch) => {
 
 export const createProfile = (formData, history, edit = false) => async (dispatch) => {
   try {
-    const res = await api.post('/profile', formData);
+    const { data } = await api.post('/profile', formData);
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
     if (!edit) {
@@ -96,10 +96,10 @@ export const createProfile = (formData, history, edit = false) => async (dispatc
 
 export const addExperience = (formData, history) => async (dispatch) => {
   try {
-    const res = await api.put('/profile/experience', formData);
+    const { data } = await api.put('/profile/experience', formData);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Experience Added', 'success'));
     history.push('/dashboard');
@@ -117,10 +117,10 @@ export const addExperience = (formData, history) => async (dispatch) => {
 
 export const addEducation = (formData, history) => async (dispatch) => {
   try {
-    const res = await api.put('/profile/education', formData);
+    const { data } = await api.put('/profile/education', formData);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Education Added', 'success'));
     history.push('/dashboard');
@@ -138,10 +138,10 @@ export const addEducation = (formData, history) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`/profile/experience/${id}`);
+    const { data } = await api.delete(`/profile/experience/${id}`);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Experience Removed', 'success'));
   } catch (err) {
@@ -154,10 +154,10 @@ export const deleteExperience = (id) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`/profile/education/${id}`);
+    const { data } = await api.delete(`/profile/education/${id}`);
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Education Removed', 'success'));
   } catch (err) {

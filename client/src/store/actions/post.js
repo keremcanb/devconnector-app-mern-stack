@@ -13,10 +13,10 @@ import {
 
 export const getPosts = () => async (dispatch) => {
   try {
-    const res = await api.get('/posts');
+    const { data } = await api.get('/posts');
     dispatch({
       type: GET_POSTS,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -28,10 +28,10 @@ export const getPosts = () => async (dispatch) => {
 
 export const addLike = (id) => async (dispatch) => {
   try {
-    const res = await api.put(`/posts/like/${id}`);
+    const { data } = await api.put(`/posts/like/${id}`);
     dispatch({
       type: UPDATE_LIKES,
-      payload: { id, likes: res.data }
+      payload: { id, likes: data }
     });
   } catch (err) {
     dispatch({
@@ -43,10 +43,10 @@ export const addLike = (id) => async (dispatch) => {
 
 export const removeLike = (id) => async (dispatch) => {
   try {
-    const res = await api.put(`/posts/unlike/${id}`);
+    const { data } = await api.put(`/posts/unlike/${id}`);
     dispatch({
       type: UPDATE_LIKES,
-      payload: { id, likes: res.data }
+      payload: { id, likes: data }
     });
   } catch (err) {
     dispatch({
@@ -74,10 +74,10 @@ export const deletePost = (id) => async (dispatch) => {
 
 export const addPost = (formData) => async (dispatch) => {
   try {
-    const res = await api.post('/posts', formData);
+    const { data } = await api.post('/posts', formData);
     dispatch({
       type: ADD_POST,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Post Created', 'success'));
   } catch (err) {
@@ -90,10 +90,10 @@ export const addPost = (formData) => async (dispatch) => {
 
 export const getPost = (id) => async (dispatch) => {
   try {
-    const res = await api.get(`/posts/${id}`);
+    const { data } = await api.get(`/posts/${id}`);
     dispatch({
       type: GET_POST,
-      payload: res.data
+      payload: data
     });
   } catch (err) {
     dispatch({
@@ -105,10 +105,10 @@ export const getPost = (id) => async (dispatch) => {
 
 export const addComment = (postId, formData) => async (dispatch) => {
   try {
-    const res = await api.post(`/posts/comment/${postId}`, formData);
+    const { data } = await api.post(`/posts/comment/${postId}`, formData);
     dispatch({
       type: ADD_COMMENT,
-      payload: res.data
+      payload: data
     });
     dispatch(setAlert('Comment Added', 'success'));
   } catch (err) {
